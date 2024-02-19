@@ -13,6 +13,8 @@ def yes_no(question):
             print("Please enter yes / no :(")
 
 # displays instructions to user
+
+
 def instruction():
     print('''
 
@@ -42,6 +44,8 @@ Good luck!
 
 # Checks that users enter an integer
 # that is more than 13
+
+
 def int_check():
 
     while True:
@@ -78,4 +82,4 @@ if want_instructions == "yes":
 print()
 target_score = int_check()
 
-
+# video 8 - 2:43
