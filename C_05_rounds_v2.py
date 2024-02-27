@@ -23,15 +23,21 @@ def two_rolls(who):
         double_score = "yes"
 
     # Find the total points (so far)
-    user_points = roll_1 + roll_2
+    first_points = roll_1 + roll_2
 
     # Show the user the result
     print(f"{who}: {roll_1} \t Die 2: {roll_2}")
 
-    return user_points, double_score
+    return first_points, double_score
 
 
 # Main routine goes here
+
+# initialise 'pass' variables
+user_pass = "no"
+computer_pass = "no"
+
+# Start round...
 print("Press <enter> to begin this round: ")
 input()
 
@@ -56,7 +62,11 @@ while computer_points < 13 and user_points < 13:
     # ask user if they want to roll again, update
     # points / status
     print()
-    roll_again = input("Do you want to roll the dice (type 'no' to pass): ")
+    if user_pass == "no":
+        roll_again = input("Do you want to roll the dice (type 'no' to pass): ")
+    else:
+        roll_again = "no"
+
     if roll_again == "yes":
         user_move = roll_die()
         user_points += user_move
@@ -75,21 +85,30 @@ while computer_points < 13 and user_points < 13:
         else:
             print(f"You rolled a {user_move} and have a total score of {user_points}")
 
-    # roll die for computer and update computer points
-    computer_move = roll_die()
-    computer_points += computer_move
+    else:
+        # If user passes, we don't want to let them roll again!
+        user_pass = "yes"
 
-    # check computer has not gone over...
-    if computer_points > 13:
-        print(f"💥The computer rolled a {computer_move}, taking their points"
-              f" to {computer_points}. This is over 13 points")
-        print("so the computer loses!💥 ")
-        computer_points = 0
-        break
+    # if computer has 10 points or more (and is winning), it should pass!
+    if computer_points >= 10 and computer_points >= user_points:
+        computer_pass = "yes"
 
     else:
-        print(f"The computer rolled a {computer_move}. The computer"
-              f" now has {computer_points}.")
+        # roll die for computer and update computer points
+        computer_move = roll_die()
+        computer_points += computer_move
+
+        # check computer has not gone over...
+        if computer_points > 13:
+            print(f"💥The computer rolled a {computer_move}, taking their points"
+                  f" to {computer_points}. This is over 13 points")
+            print("so the computer loses!💥 ")
+            computer_points = 0
+            break
+
+        else:
+            print(f"The computer rolled a {computer_move}. The computer"
+                  f" now has {computer_points}.")
 
     print()
     # Tells user if they are winning, losing or tied
@@ -103,6 +122,11 @@ while computer_points < 13 and user_points < 13:
     print(f"*** Round Update ***: {result} ")
     print(f"User Score: {user_points} \t | \t Computer Score: {computer_points}. ")
 
+    # if both the user and the computer have passed,
+    # we need to exit the loop.
+    if computer_pass == "yes" and user_pass == "yes":
+        break
+
 # Outside loop - double user points if they won and are eligible
 
 # Show rounds results
@@ -112,9 +136,14 @@ if user_points < computer_points:
     print("The computer's score has increased  by {computer_points} points.")
 
 # currently does not include double points!
-else:
+elif user_points > computer_points:
     # Double user points if they are eligible
     if double_points == "yes":
         user_points *= 2
+
     print(f"👍Yay! You won the round and {user_points} points has"
           f" been added to your score!👍")
+
+else:
+    print(f"👔The result for this round it a tie. You and the computer "
+          f"both have {user_points}.👔")
