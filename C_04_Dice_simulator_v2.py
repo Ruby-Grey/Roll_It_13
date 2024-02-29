@@ -27,7 +27,7 @@ def two_rolls():
 
     # Show the user the result
     print(f"Die 1: {roll_1} \t Die 2: {roll_2}")
-    
+
     return user_points, double_score
 
 
