@@ -142,7 +142,7 @@ print()
 # Loop game until we have a winner
 while user_score < target_score and comp_score < target_score:
 
-    # Ass one to the number of rounds (for our heading)
+    # As one to the number of rounds (for our heading)
     num_rounds += 1
     print(f"Round {num_rounds} ")
 
@@ -160,6 +160,9 @@ while user_score < target_score and comp_score < target_score:
     user_first = two_rolls("User")
     user_points = user_first[0]
     double_points = user_first[1]
+
+    # Tells the total of points the user won
+    print(f"You rolled a total of {user_points}.")
 
     # Tell the user if they are eligible for double points
     if double_points == "yes":
@@ -330,6 +333,6 @@ print(f"User     - Lowest Score: {user_stats[0]}\t "
       f"Highest Score: {user_stats[1]}\t "
       f"Average Scores: {user_stats[2]:.2f}")
 
-print(f"Computer - Lowest Score: {user_stats[0]}\t "
+print(f"Computer - Lowest Score: {comp_stats[0]}\t "
       f"Highest Score: {comp_stats[1]}\t "
       f"Average Scores: {comp_stats [2]:.2f}")
